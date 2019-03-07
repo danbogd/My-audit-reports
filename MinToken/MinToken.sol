@@ -12,7 +12,7 @@ contract owned {
         _;
     }
 
-    function transferOwnership(address newOwner) onlyOwner public {/////////////////////////////////////
+    function transferOwnership(address newOwner) onlyOwner public {
         owner = newOwner;
     }
 }
@@ -57,7 +57,7 @@ contract MinValue is owned{
         symbol = tokenSymbol;
         nReceivers=0;
         receiversMinValueAddr.push(_ricevente);
-        burned = 0;//////////////////////////////////////////event
+        burned = 0;
     }
     
     function setNewReceiverAddr(address _ricevente) onlyOwner public{
@@ -94,7 +94,7 @@ contract MinValue is owned{
     }
 
     function _calcPercentage(uint _value, uint _percentage) internal constant returns(uint){
-        return (_value*_percentage)/100;///////////////////////////safe math
+        return (_value*_percentage)/100;
     }
 
     function _burnPercentageAndTransfer(uint _value, address _sender, address _to) internal {
@@ -109,7 +109,7 @@ contract MinValue is owned{
     function existReceiver(address _ricevente) public constant returns(bool){
         bool check = false;
         for(uint i = 0; i <= nReceivers; i++){
-            if(receiversMinValueAddr[i] == _ricevente)///////////////////////////////////////////////////
+            if(receiversMinValueAddr[i] == _ricevente)
                 check = true;
         }
         return check;
@@ -139,7 +139,7 @@ contract MinValue is owned{
         return true;
     }
 
-    function approve(address _spender, uint256 _value) public///////////////////////////////////////////
+    function approve(address _spender, uint256 _value) public
         returns (bool success) {
         allowance[msg.sender][_spender] = _value;
         return true;
@@ -200,7 +200,7 @@ contract MinValueToken is owned, MinValue {
         emit Transfer(_from, _to, _value);
     }
 
-    function freezeAccount(address target, bool freeze) onlyOwner public {///////////////////////////////////////////////////////////////////
+    function freezeAccount(address target, bool freeze) onlyOwner public {
         frozenAccount[target] = freeze;
         emit FrozenFunds(target, freeze);
     }
