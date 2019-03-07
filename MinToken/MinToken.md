@@ -24,7 +24,7 @@ No critical security issues were found.
 
 ## 3.1. Out Of Gas
 
-###Severity: medium
+### Severity: medium
 
 ### Description
 
@@ -34,15 +34,16 @@ Knowing that transfer is one of the most called function in a token contract suc
 
 ### Code snippet
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L126
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L109
-Recommendation
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L126
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L109
+
+### Recommendation
 
 Implement a mapping instead of an array, a mapping will allow to directly find if an address is listed or not.
 
 Example:
-
+```solidity
     mapping (address => bool) public receiversMinValueAddr;
 
     function existReceiver(address _ricevente) public constant returns(bool){
@@ -57,6 +58,7 @@ Example:
     function removeReceiverAddr(address _ricevente) onlyOwner public{
         receiversMinValueAddr[_ricevente] = false;
     }
+```
 
 ## 3.2. Owner Privileges
 
@@ -70,9 +72,9 @@ Example:
 
 ### Code snippet
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L77
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L77
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L203
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L203
 
 ## 3.3. Extra Computation
 
@@ -86,9 +88,9 @@ Also please note, the amount that the msg.sender is approving to itself should b
 
 ### Code snippet
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L104#L105
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L104#L105
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L126
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L126
 
 ## 3.4. Transfer Event
 
@@ -100,7 +102,7 @@ When assigning the totalSupply to the msg.sender in the constructor phase a tran
 
 ### Code snippet
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L55
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L55
 
 ## 3.5. 0x0 Address Check
 
@@ -113,7 +115,7 @@ https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae8
 
 ### Code snippet
 
-https://github.com/RideSolo/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L52
+https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L52
 
 https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L15-L17
 
@@ -128,9 +130,12 @@ https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae8
 
 ### Recommendation
 
-Add into a function transfer(address _to, ... ) following code:
+Add into a function `transfer(address _to, ... )` following code:
 
+```solidity
 require( _to != address(this) );
+
+```
 
 ## 3.7. Overflow in _calcPercentage function
 
@@ -139,13 +144,14 @@ require( _to != address(this) );
 ### Description
 
 If the user input not correct value in transfer function the overflow occurs, but transfer will reverted due using SafeMath in the function _calcPercentage.
-Code snippet
+
+### Code snippet
 
 https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L97
 
 https://github.com/MinToken/MinToken/blob/a0d095bb1a375f7b528e7a56d9c8bb00a2dae829/mintoken.sol#L128
 
-#4. Conclusion
+# 4. Conclusion
 
 The highlighted issues should be fixed before deployment.
 
